@@ -104,7 +104,7 @@ export default {
     settings: {
       libraries: {
         'contracts/libraries/NFTDescriptor.sol': {
-          NFTDescriptor: '0xF9702469Dfb84A9aC171E284F71615bd3D3f1EdC', // replace me
+          NFTDescriptor: '0x3B41A520D1fbEf4052b61f807b3437bc86b7F23b', // replace me
         },
       },
     },
