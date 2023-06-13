@@ -3,6 +3,8 @@ import '@nomiclabs/hardhat-etherscan'
 import '@nomiclabs/hardhat-waffle'
 import 'hardhat-typechain'
 import 'hardhat-watcher'
+import '@matterlabs/hardhat-zksync-deploy'
+import '@matterlabs/hardhat-zksync-solc'
 
 const LOW_OPTIMIZER_COMPILER_SETTINGS = {
   version: '0.7.6',
@@ -48,6 +50,18 @@ const DEFAULT_COMPILER_SETTINGS = {
 
 export default {
   networks: {
+    zkSyncTestnet: {
+      url: 'https://testnet.era.zksync.dev',
+      ethNetwork: 'https://www.noderpc.xyz/rpc-goerli/public', // RPC URL of the network (e.g. `https://goerli.infura.io/v3/<API_KEY>`)
+      zksync: true,
+      verifyURL: 'https://zksync2-testnet-explorer.zksync.dev/contract_verification',
+    },
+    zkSync: {
+      url: 'https://mainnet.era.zksync.io',
+      ethNetwork: 'mainnet',
+      zksync: true,
+      verifyURL: 'https://zksync2-mainnet-explorer.zksync.dev/contract_verification',
+    },
     hardhat: {
       allowUnlimitedContractSize: false,
     },
@@ -84,6 +98,18 @@ export default {
     // Obtain one at https://etherscan.io/
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
+  zksolc: {
+    version: '1.3.10',
+    compilerSource: 'binary',
+    settings: {
+      libraries: {
+        'contracts/libraries/NFTDescriptor.sol': {
+          NFTDescriptor: '0xF9702469Dfb84A9aC171E284F71615bd3D3f1EdC', // replace me
+        },
+      },
+    },
+  },
+  defaultNetwork: process.env.ZK === 'true' ? 'zkSyncTestnet' : 'hardhat',
   solidity: {
     compilers: [DEFAULT_COMPILER_SETTINGS],
     overrides: {
